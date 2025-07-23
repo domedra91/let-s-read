@@ -18,7 +18,6 @@ class Books:
         print("Hello and welcome {0} to 'Let's Read', your top fictional book recommendation software.\n".format(name))
         print("Below are list of options to choose from.  Enter '1', '2', '3', or '4' to get started\n")
         
-
     def display_options(self):
         print("1. Books by Genre")
         print("2. Top Rated Books")
@@ -26,7 +25,7 @@ class Books:
         print("4. Add a book to the library")
         print("5. By search")
         print("6. Quit\n")
-        return 
+        return             
     
     def get_books_by_genre(self, genre):
         genre_first = []
@@ -43,16 +42,14 @@ class Books:
             print(genre_filtered)
         return genre_filtered
 
-
     def top_rated_books(self):
         print("Here's the top 10 rated books in our database")
         rated_list = []
         for book in my_books.inventory:
             rated_list.append([book[3], book[0], book[1], book[2], book[4]])
-        sorted_list = sorted(list, reverse=True)
+        sorted_list = sorted(rated_list, reverse=True)
         print(*sorted_list[:10], sep="\n")
         return sorted_list
-
 
     def get_recently_added(self):
         date_first = []
@@ -68,7 +65,6 @@ class Books:
         title, author, genre, rating, date = user_book.split(",")
         my_books.inventory.append([title, author, genre, rating, date])
         print("\nYour book has been successfully added.")
-        print(*my_books.inventory, sep="\n")
         return my_books.inventory     
 
     def by_search(self, string):
@@ -88,7 +84,6 @@ class Books:
         else:
             print("Sorry no results found in the database.")
         return search     
-        
 
 my_books = Books()
 my_books.display_options()
@@ -101,7 +96,7 @@ while True:
         genre_titled = user_genre.title()
         my_books.get_books_by_genre(genre_titled)
         break
-
+      
     elif choice == 2:
         print("Thanks for selecting {0}!\n".format(choice))
         my_books.top_rated_books()
@@ -111,33 +106,21 @@ while True:
         print("Thanks for selecting {0}!\n".format(choice))
         my_books.get_recently_added()
         break
-    
+        
     elif choice == 4:
         print("Thanks for selecting {0}!\n".format(choice))
         print("Please add book in the following order, separated by commas: title, author, genre, rating, today's month number")
         user_book = input()
         user_book_titled = user_book.title()
         my_books.add_book(user_book_titled)
-        print("\nDo you wish to add another book, enter 'y' for yes, 'n' to quit")
-        choice2 = input()
-        choice2 = choice2.lower()
-        if choice2 == 'y':
-            print("Please add book in the following order, separated by commas: title, author, genre, rating, today's month number")
-            user_book = input()
-            user_book_titled = user_book.title()
-            my_books.add_book(user_book_titled)
-            print("\nDo you wish to add another book, enter 'y' for yes, 'n' to quit")
-            choice2 = input()
-            choice2 = choice2.lower()
-        else:
-            break
-
+        break
+                 
     elif choice == 5:
         print("Thanks for selecting {0}!\n".format(choice))
         print("Please enter a keyword, title, genre, or author to search database:")
         user_input = input()
-        my_books.by_search(user_input)
-        break
+        my_books.by_search(user_input) 
+        break 
 
     elif choice == 6:
         print("Have a nice day!\n".format(choice))
@@ -147,4 +130,3 @@ while True:
         print("Invalid choice.  Please enter an appropriate option\n")
         my_books.display_options()
         choice = int(input())
-
