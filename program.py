@@ -7,7 +7,7 @@ print("       _        _       ")
 print("      |_|------|_|      ")
 print("           |            ")
 print("                        ")
-print("------------------------")
+print("-" * 20)
 print("\n" * 2)
 
 class Books:
