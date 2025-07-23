@@ -11,8 +11,8 @@ print("------------------------")
 print("\n" * 2)
 
 class Books:
-    inventory = [["Investing 101","DD","Business", "4", "7"]]
-
+    inventory = [["Investing 101","DD","Business", "4", "7"],["How to make a tape dispenser","JD","Drama", "2", "6"],["iPhone","BD","Classical", "4", "7"],["Coins 101","CD","Literature", "5", "4"],["Microscrope","MTD","None", "1", "7"],["Whiteboard","DD","Cool", "2", "1"],["Tory","GD","Business", "3", "6"],["iMAc","HP","Classical", "3", "7"],["Cards","JL","Fun", "5", "4"],["Magic Mouse","TC","Sports", "5", "6"],["Case: Held Alive","PW","sports", "3", "7"],["Thermal Labels","SZ","Literature", "4", "7"],["Classical 101","TM","Science", "4", "7"],["Billiards","JS","Sports", "4", "2"],["Spongebob","DW","Comedy", "5", "7"],["Mixmaster","JP","Sports", "5", "7"]]
+    
     def __init__(self):
         name = input("Please enter your name \n")
         print("Hello and welcome {0} to 'Let's Read', your top fictional book recommendation software.\n".format(name))
@@ -29,14 +29,40 @@ class Books:
         return 
     
     def get_books_by_genre(self, genre):
-        print("thanks for playing the game")
-        return 
+        genre_first = []
+        genre_filtered = []
+        for book in my_books.inventory:
+            genre_first = ([book[2], book[0], book[1], book[3], book[4]])
+            if genre.title() == genre_first[0]:
+                genre_filtered.append([book[2], book[0], book[1], book[3], book[4]])
+            else:
+                continue
+        if len(genre_filtered) == 0:
+            print("Sorry, we don't have any books to recommend for that genre at the moment")
+        else:
+            print(genre_filtered)
+        return genre_filtered
 
-    def top_rated_books_(self):
-        pass
+
+    def top_rated_books(self):
+        print("Here's the top 10 rated books in our database")
+        rated_list = []
+        for book in my_books.inventory:
+            rated_list.append([book[3], book[0], book[1], book[2], book[4]])
+        sorted_list = sorted(list, reverse=True)
+        print(*sorted_list[:10], sep="\n")
+        return sorted_list
+
 
     def get_recently_added(self):
-        pass
+        date_first = []
+        sorted_date = []
+        print("Here the 5 most recently added books:")
+        for book in my_books.inventory:
+            date_first.append([book[4], book[0], book[1], book[2], book[3]])
+        sorted_date = sorted(date_first, reverse=True)
+        print(*sorted_date[:5], sep="\n")
+        return sorted_date
 
     def add_book(self, user_book):
         title, author, genre, rating, date = user_book.split(",")
@@ -46,7 +72,18 @@ class Books:
         return my_books.inventory     
 
     def by_search(self, string):
-        pass
+        search = []
+        print("Printing results for: " + string + "\n")
+        for i in range(0,len(my_books.inventory)):
+            if string in my_books.inventory[i]:
+                search.append(my_books.inventory[i])
+            else:
+                continue 
+        if len(search) > 0:
+            print(*search, sep="\n")
+        else:
+            print("Sorry no results found in the database.")
+        return search     
         
 
 my_books = Books()
@@ -58,16 +95,17 @@ while True:
         print("Thanks for selecting {0}!\nWhat genre would you like to search by?\n".format(choice))
         user_genre = input()
         genre_titled = user_genre.title()
-        print("'{0}'-books are below".format(genre_titled))
         my_books.get_books_by_genre(genre_titled)
         break
 
     elif choice == 2:
         print("Thanks for selecting {0}!\n".format(choice))
+        my_books.top_rated_books()
         break
 
     elif choice == 3:
         print("Thanks for selecting {0}!\n".format(choice))
+        my_books.get_recently_added()
         break
     
     elif choice == 4:
@@ -88,17 +126,17 @@ while True:
             choice2 = input()
             choice2 = choice2.lower()
         else:
-            choice = 0
-            my_books.display_options()
-            choice = int(input())
             break
 
     elif choice == 5:
         print("Thanks for selecting {0}!\n".format(choice))
+        print("Please enter a keyword, title, genre, or author to search database:")
+        user_input = input()
+        my_books.by_search(user_input)
         break
 
     elif choice == 6:
-        print("Have a nice day! {0}!\n".format(choice))
+        print("Have a nice day!\n".format(choice))
         break
 
     else:
