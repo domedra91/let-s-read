@@ -12,7 +12,7 @@ print("\n" * 2)
 
 class Books:
     inventory = [["Investing 101","DD","Business", "4", "7"],["How to make a tape dispenser","JD","Drama", "2", "6"],["iPhone","BD","Classical", "4", "7"],["Coins 101","CD","Literature", "5", "4"],["Microscrope","MTD","None", "1", "7"],["Whiteboard","DD","Cool", "2", "1"],["Tory","GD","Business", "3", "6"],["iMAc","HP","Classical", "3", "7"],["Cards","JL","Fun", "5", "4"],["Magic Mouse","TC","Sports", "5", "6"],["Case: Held Alive","PW","sports", "3", "7"],["Thermal Labels","SZ","Literature", "4", "7"],["Classical 101","TM","Science", "4", "7"],["Billiards","JS","Sports", "4", "2"],["Spongebob","DW","Comedy", "5", "7"],["Mixmaster","JP","Sports", "5", "7"]]
-    
+
     def __init__(self):
         name = input("Please enter your name \n")
         print("Hello and welcome {0} to 'Let's Read', your top fictional book recommendation software.\n".format(name))
@@ -73,9 +73,13 @@ class Books:
 
     def by_search(self, string):
         search = []
+        lower = []
+        lower_string = string.lower()
+        for book in my_books.inventory:
+            lower.append([book[0].lower(), book[1].lower(), book[2].lower(), book[3], book[4]])
         print("Printing results for: " + string + "\n")
         for i in range(0,len(my_books.inventory)):
-            if string in my_books.inventory[i]:
+            if lower_string in lower[i]:
                 search.append(my_books.inventory[i])
             else:
                 continue 
